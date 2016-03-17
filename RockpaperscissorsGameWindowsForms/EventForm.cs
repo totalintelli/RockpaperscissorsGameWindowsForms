@@ -12,12 +12,11 @@ using System.Windows.Forms;
 namespace RockpaperscissorsGameWindowsForms
 {
 
+    public delegate void EventHandler(RockpaperscissorsGame RpsGame);
 
     public partial class EventForm : Form
     {
-        public delegate void EventHandler(RockpaperscissorsGame RpsGame);
         public event EventHandler PopUpEvent;
-
         public int UserChoice; // 사용자의 선택값
 
         public EventForm()
@@ -34,9 +33,6 @@ namespace RockpaperscissorsGameWindowsForms
         private void DoSomething()
         {
             RockpaperscissorsGame RpsGame = new RockpaperscissorsGame();
-
-            RockpaperscissorsGame.Results Result;                 // 게임 결과
-            RockpaperscissorsGame.Status ExchangedComputerChoice;
            
             RpsGame.Play(UserChoice);
 
@@ -45,7 +41,6 @@ namespace RockpaperscissorsGameWindowsForms
 
         private void btn_scissors_clicked(object sender, EventArgs e)
         {
-            RockpaperscissorsGame RpsGame = new RockpaperscissorsGame();
             UserChoice = 0;
             pictureBox1.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Scissors.png");
             DoSomething();
@@ -54,7 +49,6 @@ namespace RockpaperscissorsGameWindowsForms
 
         private void btn_rock_clicked(object sender, EventArgs e)
         {
-            RockpaperscissorsGame RpsGame = new RockpaperscissorsGame();
             UserChoice = 1;
             pictureBox1.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Rock.png");
             DoSomething();
@@ -62,7 +56,6 @@ namespace RockpaperscissorsGameWindowsForms
 
         private void btn_paper_clicked(object sender, EventArgs e)
         {
-            RockpaperscissorsGame RpsGame = new RockpaperscissorsGame();
             UserChoice = 2;
             pictureBox1.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Paper.png");
             DoSomething();
@@ -107,8 +100,6 @@ namespace RockpaperscissorsGameWindowsForms
 
     public class RockpaperscissorsGame
     {
-       
-        
         public Results Result;
         public Status ExchangedComputerChoice;
 
