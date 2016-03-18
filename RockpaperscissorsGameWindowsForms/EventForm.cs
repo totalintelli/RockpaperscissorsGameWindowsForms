@@ -164,59 +164,37 @@ namespace RockpaperscissorsGameWindowsForms
             }
 
             // 가위바위보 게임을 한다.
-            if (ExchangedUserChoice == Status.Scissors)
-            {
-                switch (ExchangedComputerChoice)
-                {
-                    case Status.Scissors:
-                        Result = Results.Draw;
-                        break;
-                    case Status.Rock:
-                        Result = Results.Lose;
-                        break;
-                    case Status.Paper:
-                        Result = Results.Win;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            if (ExchangedUserChoice == Status.Rock)
-            {
-                switch (ExchangedComputerChoice)
-                {
-                    case Status.Scissors:
-                        Result = Results.Win;
-                        break;
-                    case Status.Rock:
-                        Result = Results.Draw;
-                        break;
-                    case Status.Paper:
-                        Result = Results.Lose;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            if (ExchangedUserChoice == Status.Paper)
-            {
-                switch (ExchangedComputerChoice)
-                {
-                    case Status.Scissors:
-                        Result = Results.Lose;
-                        break;
-                    case Status.Rock:
-                        Result = Results.Win;
-                        break;
-                    case Status.Paper:
-                        Result = Results.Draw;
-                        break;
-                    default:
-                        break;
-                }
-            }
+            Result = CompareTwo(ExchangedUserChoice, ExchangedComputerChoice);
 
             return RpsGame;
+        }
+
+        Results CompareTwo(Status User, Status Computer)
+        {
+            Results result = Results.None;
+
+            if(User < Computer)
+            {
+                result = Results.Lose;
+            }
+            else if (User > Computer)
+            {
+                result = Results.Win;
+            }
+            else
+            {
+                result = Results.Draw;
+            }
+            if(User == Status.Paper && Computer == Status.Scissors)
+            {
+                result = Results.Lose;
+            }
+            if(User == Status.Scissors && Computer == Status.Paper)
+            {
+                result = Results.Win;
+            }
+
+            return result;
         }
     }
 
