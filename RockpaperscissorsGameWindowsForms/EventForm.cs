@@ -105,6 +105,7 @@ namespace RockpaperscissorsGameWindowsForms
         public Status ExchangedComputerChoice;
         public Status ExchangedUserChoice;
         public int UserChoice; // 사용자의 선택값
+        int ComputerChoice;    // 컴퓨터의 선택값
 
         public enum Status
         {
@@ -122,11 +123,20 @@ namespace RockpaperscissorsGameWindowsForms
             None = -1
         }
 
-        public RockpaperscissorsGame Play(int UserChoice)
+        public int SetComputerChoice()
+        {
+            // 컴퓨터의 선택을 구한다.
+            Random Random = new Random();
+            ComputerChoice = Random.Next(0, 3);
+
+            return ComputerChoice;
+        }
+
+        public RockpaperscissorsGame Play(int UserChoice, int ComputerChoice)
         {
             RockpaperscissorsGame RpsGame = new RockpaperscissorsGame();
             RpsGame.Result = Results.None;                   // 게임 결과
-            int ComputerChoice;                               // 컴퓨터의 선택값
+            
             RpsGame.ExchangedUserChoice = Status.None;     // 사용자 선택의 변환값
             RpsGame.ExchangedComputerChoice = Status.None;  // 컴퓨터의 선택값의 변환값
 
@@ -145,10 +155,6 @@ namespace RockpaperscissorsGameWindowsForms
                 default:
                     break;
             }
-
-            // 컴퓨터의 선택을 구한다.
-            Random Random = new Random();
-            ComputerChoice = Random.Next(0, 3);
 
             // 컴퓨터 선택의 변환값을 구한다.
             switch (ComputerChoice)
@@ -203,7 +209,8 @@ namespace RockpaperscissorsGameWindowsForms
 
         public void DoSomething(RockpaperscissorsGame RpsGame)
         {
-            RpsGame = Play(UserChoice);
+            SetComputerChoice();
+            RpsGame = Play(UserChoice, ComputerChoice);
 
             if (PopUpEvent != null)
                 PopUpEvent(RpsGame);
