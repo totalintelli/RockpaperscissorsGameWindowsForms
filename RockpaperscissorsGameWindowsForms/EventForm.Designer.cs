@@ -32,14 +32,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lb_result = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.rightPicBox = new System.Windows.Forms.PictureBox();
+            this.leftPicBox = new System.Windows.Forms.PictureBox();
             this.btn_paper = new System.Windows.Forms.Button();
             this.btn_rock = new System.Windows.Forms.Button();
             this.btn_scissors = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rightPicBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.leftPicBox)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -47,8 +47,8 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.lb_result);
-            this.groupBox1.Controls.Add(this.pictureBox2);
-            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.rightPicBox);
+            this.groupBox1.Controls.Add(this.leftPicBox);
             this.groupBox1.Controls.Add(this.btn_paper);
             this.groupBox1.Controls.Add(this.btn_rock);
             this.groupBox1.Controls.Add(this.btn_scissors);
@@ -86,21 +86,21 @@
             this.lb_result.TabIndex = 5;
             this.lb_result.Text = "승부 결과는?";
             // 
-            // pictureBox2
+            // rightPicBox
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(148, 50);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(100, 78);
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
+            this.rightPicBox.Location = new System.Drawing.Point(148, 50);
+            this.rightPicBox.Name = "rightPicBox";
+            this.rightPicBox.Size = new System.Drawing.Size(100, 78);
+            this.rightPicBox.TabIndex = 4;
+            this.rightPicBox.TabStop = false;
             // 
-            // pictureBox1
+            // leftPicBox
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(6, 50);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 82);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
+            this.leftPicBox.Location = new System.Drawing.Point(6, 50);
+            this.leftPicBox.Name = "leftPicBox";
+            this.leftPicBox.Size = new System.Drawing.Size(100, 82);
+            this.leftPicBox.TabIndex = 3;
+            this.leftPicBox.TabStop = false;
             // 
             // btn_paper
             // 
@@ -142,8 +142,8 @@
             this.Text = "가위바위보 게임기";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rightPicBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.leftPicBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -154,8 +154,8 @@
         private System.Windows.Forms.Button btn_scissors;
         private System.Windows.Forms.Button btn_paper;
         private System.Windows.Forms.Button btn_rock;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox rightPicBox;
+        private System.Windows.Forms.PictureBox leftPicBox;
         private System.Windows.Forms.Label lb_result;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;

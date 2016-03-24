@@ -11,71 +11,70 @@ using System.Windows.Forms;
 
 namespace RockpaperscissorsGameWindowsForms
 {
-
-    public delegate void EventHandler(RockpaperscissorsGame RpsGame);
-
     public partial class EventForm : Form
     {
-        public event EventHandler PopUpEvent;
-        public int UserChoice; // 사용자의 선택값
+        RockpaperscissorsGame RpsGame = new RockpaperscissorsGame();
 
         public EventForm()
         {
-            RockpaperscissorsGame RpsGame = new RockpaperscissorsGame();
-
             InitializeComponent();
 
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            PopUpEvent += new EventHandler(PopupMessage);
+            leftPicBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            rightPicBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            RpsGame.PopUpEvent += ShowResult;
         }
 
-        private void DoSomething()
+        private void btn_scissors_clicked(object sender,EventArgs e)
         {
-            RockpaperscissorsGame RpsGame = new RockpaperscissorsGame();
-           
-            RpsGame.Play(UserChoice);
-
-            PopUpEvent(RpsGame);
+            GameTrigger(sender.ToString());
         }
-
-        private void btn_scissors_clicked(object sender, EventArgs e)
-        {
-            UserChoice = 0;
-            pictureBox1.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Scissors.png");
-            DoSomething();
-        }
-
 
         private void btn_rock_clicked(object sender, EventArgs e)
         {
-            UserChoice = 1;
-            pictureBox1.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Rock.png");
-            DoSomething();
+            GameTrigger(sender.ToString());
         }
 
         private void btn_paper_clicked(object sender, EventArgs e)
         {
-            UserChoice = 2;
-            pictureBox1.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Paper.png");
-            DoSomething();
+            GameTrigger(sender.ToString());
         }
 
-        
+        public void GameTrigger(string buttonText)
+        {
+            switch(buttonText)
+            {
+                case "System.Windows.Forms.Button, Text: 가위":
+                    RpsGame.UserChoice = 0;
+                    leftPicBox.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Scissors.png");
+                    break;
+                case "System.Windows.Forms.Button, Text: 바위":
+                    RpsGame.UserChoice = 1;
+                    leftPicBox.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Rock.png");
+                    break;
+                case "System.Windows.Forms.Button, Text: 보":
+                    RpsGame.UserChoice = 2;
+                    leftPicBox.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Paper.png");
+                    break;
+                default:
+                    break;
+            }
 
-        public void PopupMessage(RockpaperscissorsGame RpsGame)
+            RpsGame.DoSomething(RpsGame);
+        }
+
+        public void ShowResult(RockpaperscissorsGame RpsGame)
         {
             // 컴퓨터 선택의 변환값을 화면에 표시한다.
             switch (RpsGame.ExchangedComputerChoice)
             {
                 case RockpaperscissorsGame.Status.Scissors:
-                    pictureBox2.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Scissors.png");
+                    rightPicBox.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Scissors.png");
                     break;
                 case RockpaperscissorsGame.Status.Rock:
-                    pictureBox2.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Rock.png");
+                    rightPicBox.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Rock.png");
                     break;
                 case RockpaperscissorsGame.Status.Paper:
-                    pictureBox2.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Paper.png");
+                    rightPicBox.Load(@"E:\Projects\RockpaperscissorsGameWindowsForms\RockpaperscissorsGameWindowsForms\Paper.png");
                     break;
                 default:
                     break;
@@ -99,9 +98,13 @@ namespace RockpaperscissorsGameWindowsForms
     }
 
     public class RockpaperscissorsGame
-    {
+    { 
+        public delegate void GameEventHandler(RockpaperscissorsGame RpsGame);
+        public event GameEventHandler PopUpEvent;
         public Results Result;
         public Status ExchangedComputerChoice;
+        public Status ExchangedUserChoice;
+        public int UserChoice; // 사용자의 선택값
 
         public enum Status
         {
@@ -124,20 +127,20 @@ namespace RockpaperscissorsGameWindowsForms
             RockpaperscissorsGame RpsGame = new RockpaperscissorsGame();
             RpsGame.Result = Results.None;                   // 게임 결과
             int ComputerChoice;                               // 컴퓨터의 선택값
-            Status ExchangedUserChoice = Status.None;     // 사용자 선택의 변환값
+            RpsGame.ExchangedUserChoice = Status.None;     // 사용자 선택의 변환값
             RpsGame.ExchangedComputerChoice = Status.None;  // 컴퓨터의 선택값의 변환값
 
             // 사용자 선택의 변환값을 구한다.
             switch (UserChoice)
             {
                 case 0:
-                    ExchangedUserChoice = Status.Scissors;
+                    RpsGame.ExchangedUserChoice = Status.Scissors;
                     break;
                 case 1:
-                    ExchangedUserChoice = Status.Rock;
+                    RpsGame.ExchangedUserChoice = Status.Rock;
                     break;
                 case 2:
-                    ExchangedUserChoice = Status.Paper;
+                    RpsGame.ExchangedUserChoice = Status.Paper;
                     break;
                 default:
                     break;
@@ -151,20 +154,20 @@ namespace RockpaperscissorsGameWindowsForms
             switch (ComputerChoice)
             {
                 case 0:
-                    ExchangedComputerChoice = Status.Scissors;
+                    RpsGame.ExchangedComputerChoice = Status.Scissors;
                     break;
                 case 1:
-                    ExchangedComputerChoice = Status.Rock;
+                    RpsGame.ExchangedComputerChoice = Status.Rock;
                     break;
                 case 2:
-                    ExchangedComputerChoice = Status.Paper;
+                    RpsGame.ExchangedComputerChoice = Status.Paper;
                     break;
                 default:
                     break;
             }
 
             // 가위바위보 게임을 한다.
-            Result = CompareTwo(ExchangedUserChoice, ExchangedComputerChoice);
+            RpsGame.Result = CompareTwo(RpsGame.ExchangedUserChoice, RpsGame.ExchangedComputerChoice);
 
             return RpsGame;
         }
@@ -172,7 +175,7 @@ namespace RockpaperscissorsGameWindowsForms
         Results CompareTwo(Status User, Status Computer)
         {
             Results result = Results.None;
-
+             
             if(User < Computer)
             {
                 result = Results.Lose;
@@ -185,6 +188,7 @@ namespace RockpaperscissorsGameWindowsForms
             {
                 result = Results.Draw;
             }
+
             if(User == Status.Paper && Computer == Status.Scissors)
             {
                 result = Results.Lose;
@@ -195,6 +199,24 @@ namespace RockpaperscissorsGameWindowsForms
             }
 
             return result;
+        }
+
+        public void DoSomething(RockpaperscissorsGame RpsGame)
+        {
+            RpsGame = Play(UserChoice);
+
+            if (PopUpEvent != null)
+                PopUpEvent(RpsGame);
+        }
+
+        public class GameEventArgs : System.EventArgs
+        {
+            public string gameEvent; // 이벤트 변수 설정
+
+            public GameEventArgs(string e_gameEvent)
+            {
+                gameEvent = e_gameEvent;
+            }
         }
     }
 
